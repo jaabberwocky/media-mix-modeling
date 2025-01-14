@@ -224,7 +224,7 @@ class ModelConfig:
         df[self.outcome_name] /= self.outcome_scale
         return scalers, df
 
-    def run_inference(self, params, df):
+    def run_inference(self, params, df, random_seed):
         with mlflow.start_run():
             scalers, df = self.scale_data(df)
             model = self.create_model(df)
@@ -238,7 +238,8 @@ class ModelConfig:
                     tune=params['tune'],
                     init=params['init'],
                     idata_kwargs={'log_likelihood': True},
-                    return_inferencedata=True)
+                    return_inferencedata=True,
+                    random_seed=random_seed)
 
                 #self.log_results(df, idata)
 
