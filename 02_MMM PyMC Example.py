@@ -66,6 +66,7 @@
 
 # COMMAND ----------
 
+!pip install pymc
 import pymc as pm
 import arviz as az
 import datetime
@@ -172,7 +173,8 @@ params = {
     'tune': 1000,
     'init': 'auto'}
 
-model, idata, scalers = config.run_inference(params, df)
+random_seed = np.random.randint(10)
+model, idata, scalers = config.run_inference(params, df, random_seed)
 
 # COMMAND ----------
 
